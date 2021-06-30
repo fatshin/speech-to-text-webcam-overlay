@@ -154,6 +154,9 @@ navigator.mediaDevices.enumerateDevices()
 var flag_speech = 0;
 var recognition;
 var lang = 'ja-JP';
+var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
+var grammar = '#JSGF V1.0 JIS ja; <name> = "福岡市" | "接種" | "ワクチン" | "新型コロナウィルス" |  ;'
+var speechRecognitionList = new SpeechGrammarList();
 var textUpdateTimeoutID = 0;
 var textUpdateTimeoutSecond = 30; // 音声認識結果が更新されない場合にクリアするまでの秒数（0以下の場合は自動クリアしない）
 
@@ -161,9 +164,12 @@ function vr_function() {
   window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
   recognition = new webkitSpeechRecognition();
   recognition.lang = lang;
-  recognition.interimResults = true;
+  recognition.interimResults = false;
   recognition.continuous = true;
+  speechRecognitionList.addFromString(grammar, 1);
+  recognition.grammars = speechRecognitionList;
 
+  
   recognition.onsoundstart = function() {
     document.getElementById('status').innerHTML = "認識中...";
     document.getElementById('status').className = "processing";
@@ -194,9 +200,9 @@ function vr_function() {
         }
 
         if (document.getElementById('checkbox_hiragana').checked && lang == 'ja-JP') {
-          document.getElementById('result_text').innerHTML = resultToHiragana(result_transcript);
+          document.getElementById('result_log_edit').innerHTML = resultToHiragana(result_transcript);
         } else {
-          document.getElementById('result_text').innerHTML = result_transcript;
+          document.getElementById('result_log_edit').innerHTML = result_transcript;
         }
         setTimeoutForClearText();
 
@@ -222,9 +228,9 @@ function vr_function() {
         var result_transcript = results[i][0].transcript;
 
         if (document.getElementById('checkbox_hiragana').checked && lang == 'ja-JP') {
-          document.getElementById('result_text').innerHTML = resultToHiragana(result_transcript);
+          document.getElementById('result_log_edit').innerHTML = resultToHiragana(result_transcript);
         } else {
-          document.getElementById('result_text').innerHTML = result_transcript;
+          document.getElementById('result_log_edit').innerHTML = result_transcript;
         }
 
         flag_speech = 1;
@@ -774,4 +780,9 @@ function katakanaToHiragana(src) {
     var chr = match.charCodeAt(0) - 0x60;
     return String.fromCharCode(chr);
   });
+}
+
+function sample(){
+  var tx = document.getElementById("result_log_edit").value;
+  document.getElementById("result_text").innerText = tx;
 }

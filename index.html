@@ -24,7 +24,7 @@
     <div id="status_kuromoji_loading" class="hidden"></div>
 
     <div id="video_wrapper" class="video_wrapper">
-      <video id="result_video" class="video_area" autoplay></video>
+      <video id="result_video" class6="video_area" autoplay></video>
       <div id="video_bg" class="video_bg hidden"></div>
       <div id="text_overlay_wrapper" class="text_overlay_wrapper full">
         <div id="text_bg" class="text_bg"></div>
@@ -41,7 +41,17 @@
       <input class="checkboxes" id="checkbox_controls" type="checkbox" checked><label class="checkboxes_label">詳細設定を表示</label>
       <input class="checkboxes" id="checkbox_log" type="checkbox" checked><label class="checkboxes_label">認識結果のログを表示</label>
       <div class="controls_wrapper control_wrapper_row">
+
         <div class="col-12 control_wrapper_col">
+
+          <textarea type="text" id="result_log_edit" value="ここの文字が反映されます" 
+                    class="result_log_area" onchange="textAreaHeightSet(this)">
+                  </textarea>
+                  </br></br>
+
+                    <input type="button" value="送信" onclick="sample();">
+                  </br></br>
+
           <div class="control_header">文字の調整</div>
           <div class="control_wrapper" style="padding-top: 0.8rem;">
             <div class="control_form control_form_slider col-3">
