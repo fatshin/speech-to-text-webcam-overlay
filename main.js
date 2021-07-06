@@ -155,7 +155,7 @@ var flag_speech = 0;
 var recognition;
 var lang = 'ja-JP';
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
-var grammar = '#JSGF V1.0 JIS ja; <name> = "福岡市" | "接種" | "ワクチン" | "新型コロナウィルス" |  ;'
+var grammar = '#JSGF V  1.0 JIS ja;grammar examples; <name> =  "FUKUOKA NEXT" |"福岡市" | "接種" | "ワクチン" | "新型コロナウィルス" |  ;'
 var speechRecognitionList = new SpeechGrammarList();
 var textUpdateTimeoutID = 0;
 var textUpdateTimeoutSecond = 30; // 音声認識結果が更新されない場合にクリアするまでの秒数（0以下の場合は自動クリアしない）
@@ -164,7 +164,7 @@ function vr_function() {
   window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
   recognition = new webkitSpeechRecognition();
   recognition.lang = lang;
-  recognition.interimResults = false;
+  recognition.interimResults = true;
   recognition.continuous = true;
   speechRecognitionList.addFromString(grammar, 1);
   recognition.grammars = speechRecognitionList;
